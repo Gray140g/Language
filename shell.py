@@ -1,7 +1,7 @@
-import os
+#import os
 import basic
 
-os.system('CLS')
+#os.system('CLS')
 
 while True:
     text = input('basic > ')
