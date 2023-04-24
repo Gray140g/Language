@@ -1,12 +1,33 @@
 expr    : KEYWORD:VAR IDENTIFIER EQ expr
-        : term ((PLUS|MINUS) term)*
+        : compare ((KEYWORD: AND, OR) compare)
+
+compare : arith ((EE|LT|GT|LTE|GTE) arith)*
+        : KEYWORD:NOT compare
+
+arith   : term ((PLUS|MINUS) term)*
 
 term    : factor ((MUL|DIV|MOD) factor)*
 
 factor  : (PLUS|MINUS) factor
         : power
 
-power   : atom (POW factor)*
+power   : call (POW factor)*
+
+call    : atom (LPAREN (expr (COMMA expr)*)? RPAREN)?
 
 atom    : INT|FLOAT|IDENTIFIER
-		: LPAREN expr RPAREN
+	: LPAREN expr RPAREN
+        : if
+
+if      : KEYWORD:IF expr THEN expr
+          (KEYWORD:ELIF) expr THEN expr)*
+          (KEYWORD:ELSE expr)?
+
+for     : KEYWORD:FOR IDENTIFIER EQ expr COMMA expr
+          (COMMA expr)? THEN expr
+
+while   : KEYWORD:WHILE expre THEN expr
+
+func    : KEYWORD:FUN IDENTIFIER
+          LPAREN (IDENTIFIER (COMMA IDENTIFIER)*)? RPAREN
+          THEN expr
