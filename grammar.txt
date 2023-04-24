@@ -15,9 +15,11 @@ power   : call (POW factor)*
 
 call    : atom (LPAREN (expr (COMMA expr)*)? RPAREN)?
 
-atom    : INT|FLOAT|IDENTIFIER
+atom    : INT|FLOAT|STRING|IDENTIFIER
 	: LPAREN expr RPAREN
         : if
+
+list    : LBRACK (expr (COMMA expr)*)? RBRACK
 
 if      : KEYWORD:IF expr THEN expr
           (KEYWORD:ELIF) expr THEN expr)*
