@@ -1,0 +1,18 @@
+for(i = 0, 10)
+{
+    var a = Input();
+    Print(a);
+
+    if(a == "hi")
+    {
+        Print("if");
+    }
+    elif(a == "bye")
+    {
+        Print("elif");
+    }
+    else
+    {
+        Print("else");
+    }
+}
